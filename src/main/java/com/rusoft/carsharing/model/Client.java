@@ -1,5 +1,6 @@
 package com.rusoft.carsharing.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ import javax.persistence.*;
 public class Client {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "name")
@@ -22,6 +24,7 @@ public class Client {
     private String birthYear;
 
     @OneToOne(mappedBy = "client")
+    @JsonIgnore
     private Car car;
 
 }
