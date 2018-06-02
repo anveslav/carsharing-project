@@ -1,6 +1,8 @@
 package com.rusoft.carsharing.service;
 
+import com.rusoft.carsharing.dto.ClientDto;
 import com.rusoft.carsharing.exception.CarsharingException;
+import com.rusoft.carsharing.mapper.ModelMapper;
 import com.rusoft.carsharing.model.Car;
 import com.rusoft.carsharing.model.Client;
 import com.rusoft.carsharing.repository.ClientRepository;
@@ -19,8 +21,8 @@ public class ClientServiceImpl implements ClientService {
     private final CarService carService;
 
     @Override
-    public Client addClient(String clientName, String birthYear,
-                            String carModel, String carYear) {
+    public ClientDto addClient(String clientName, String birthYear,
+                               String carModel, String carYear) {
         try {
             Optional<Client> optionalClient = getClientByNameAndBirthYear(clientName, birthYear);
             Optional<Car> optionalCar = carService.getFreeCarByModelAndYear(carModel, carYear);
@@ -33,10 +35,10 @@ public class ClientServiceImpl implements ClientService {
                         .build();
                 car.setClient(client);
                 clientRepository.save(client);
-                carService.saveCar(car);
-                return client;
+                carService.addCar(ModelMapper.carToCarDto(car));
+                return ModelMapper.clientToClientDto(client);
             }
-            return optionalClient.get();
+            return ModelMapper.clientToClientDto(optionalClient.get());
         } catch (Exception ex) {
             throw CarsharingException.wrap(ex, ADDING_CLIENT_EXCEPTION);
         }

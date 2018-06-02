@@ -3,7 +3,7 @@ spring:
     hibernate:
       ddl-auto: create
   datasource:
-     url: jdbc:mysql://localhost:3306/carsharing
+     url: ${DATABASE_URL:jdbc:mysql://localhost:3306/carsharing}
      username: root
      password: root
      driver-class-name: com.mysql.jdbc.Driver

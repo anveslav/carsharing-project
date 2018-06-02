@@ -1,6 +1,8 @@
 package com.rusoft.carsharing.service;
 
+import com.rusoft.carsharing.dto.CarDto;
 import com.rusoft.carsharing.exception.CarsharingException;
+import com.rusoft.carsharing.mapper.ModelMapper;
 import com.rusoft.carsharing.model.Car;
 import com.rusoft.carsharing.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +21,24 @@ public class CarServiceImpl implements CarService {
     @Override
     public Optional<Car> getFreeCarByModelAndYear(String model, String year) {
         try {
+            Optional<Car> optionalCar = getCarByModelAndYear(model, year);
+            if (optionalCar.isPresent()) {
+                Car car = optionalCar.get();
+                if (!carIsBusyByClient(car)) {
+                    return Optional.of(car);
+                }
+            }
+            return Optional.empty();
+        } catch (Exception ex) {
+            throw CarsharingException.wrap(ex, GETTING_FREE_CAR_BY_MODEL_AND_YEAR_EXCEPTION);
+        }
+    }
+
+    @Override
+    public Optional<Car> getCarByModelAndYear(String model, String year) {
+        try {
             Car car = carRepository.findByModelAndProductionYear(model, year);
-            if (!carIsBusyByClient(car)) {
+            if (car != null) {
                 return Optional.of(car);
             }
             return Optional.empty();
@@ -31,7 +49,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public Optional<Car> getCarByModel(String model) {
-        try{
+        try {
             Car car = carRepository.findByModel(model);
             if (car != null) {
                 return Optional.of(car);
@@ -43,9 +61,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car saveCar(Car car) {
+    public void addCar(CarDto car) {
         try {
-            return carRepository.save(car);
+            Optional<Car> optionalCar = getCarByModelAndYear(car.getModel(), car.getProductionYear());
+            if (!optionalCar.isPresent()) {
+                carRepository.save(ModelMapper.carDtoToCar(car));
+            }
         } catch (Exception ex) {
             throw CarsharingException.wrap(ex, SAVING_CAR_EXCEPTION);
         }
@@ -67,10 +88,8 @@ public class CarServiceImpl implements CarService {
 
     private boolean carIsBusyByClient(Car car) {
         boolean isBusy = true;
-        if (car != null) {
-            if (car.getClient() == null) {
-                isBusy = false;
-            }
+        if (car.getClient() == null) {
+            isBusy = false;
         }
         return isBusy;
     }

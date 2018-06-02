@@ -8,7 +8,6 @@ public class CarsharingException extends RuntimeException {
 
     private ErrorCode errorCode;
 
-
     private CarsharingException(Throwable throwable, ErrorCode errorCode) {
         super(throwable);
         this.errorCode = errorCode;
