@@ -5,7 +5,6 @@ import com.rusoft.carsharing.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,11 +12,6 @@ import java.util.Optional;
 public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
-
-    @Override
-    public List<Car> getAllCars() {
-        return carRepository.findAll();
-    }
 
     @Override
     public Optional<Car> getFreeCarByModelAndYear(String model, String year) {
@@ -29,14 +23,12 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public Car getCarByModel(String model) {
-        return carRepository.findByAndModel(model);
-    }
-
-
-    @Override
-    public Car getCarById(Long id) {
-        return null;
+    public Optional<Car> getCarByModel(String model) {
+        Car car = carRepository.findByModel(model);
+        if (car != null) {
+            return Optional.of(car);
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -45,21 +37,24 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public void updateCar(Car car) {
-
+    public void makeCarFree(String model) {
+        Optional<Car> optionalCar = getCarByModel(model);
+        if (optionalCar.isPresent()) {
+            Car car = optionalCar.get();
+            car.setClient(null);
+            carRepository.save(car);
+        }
     }
 
-    @Override
-    public void deleteCarById(Long id) {
-
-    }
-
-    @Override
-    public boolean carIsBusyByClient(Car car) {
+    private boolean carIsBusyByClient(Car car) {
         boolean isBusy = true;
-        if (car.getClient() == null) {
-            isBusy = false;
+        if (car != null) {
+            if (car.getClient() == null) {
+                isBusy = false;
+            }
         }
         return isBusy;
     }
+
+
 }

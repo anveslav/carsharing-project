@@ -17,11 +17,6 @@ public class CarController {
 
     private final CarService carService;
 
-    @RequestMapping(path = "/all", method = RequestMethod.GET)
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
-    }
-
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public Car addCar(@RequestBody Car car) {
         return carService.saveCar(car);

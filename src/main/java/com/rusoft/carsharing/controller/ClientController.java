@@ -23,10 +23,9 @@ public class ClientController {
     }
 
     @RequestMapping(path = "/delete", method = RequestMethod.POST)
-    public Client deleteClient(@RequestParam("client_name") String clientName,
+    public void deleteClient(@RequestParam("client_name") String clientName,
                             @RequestParam("car_model") String carModel) {
-
-        return clientService.deleteClient(clientName, carModel);
+        clientService.deleteClient(clientName, carModel);
     }
 
 }

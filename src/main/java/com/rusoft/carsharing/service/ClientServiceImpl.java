@@ -19,7 +19,7 @@ public class ClientServiceImpl implements ClientService {
     public Client addClient(String clientName, String birthYear,
                             String carModel, String carYear) {
 
-        Optional<Client> optionalClient = findClientByNameAndBirthYear(clientName, birthYear);
+        Optional<Client> optionalClient = getClientByNameAndBirthYear(clientName, birthYear);
         Optional<Car> optionalCar = carService.getFreeCarByModelAndYear(carModel, carYear);
         if (!optionalClient.isPresent() && optionalCar.isPresent()) {
             Car car = optionalCar.get();
@@ -36,10 +36,20 @@ public class ClientServiceImpl implements ClientService {
         return optionalClient.get();
     }
 
+
     @Override
-    public Optional<Client> findClientByNameAndBirthYear(String name, String year) {
+    public Optional<Client> getClientByNameAndBirthYear(String name, String year) {
         Client client = clientRepository.findClientByNameAndBirthYear(name, year);
-        if (client != null){
+        if (client != null) {
+            return Optional.of(client);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Client> getClientByName(String name) {
+        Client client = clientRepository.findClientByName(name);
+        if (client != null) {
             return Optional.of(client);
         }
         return Optional.empty();
@@ -47,11 +57,21 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void deleteClient(String clientName, String carModel) {
-        Client client = clientRepository.findClientByName(clientName);
-        if (client != null) {
-
+        Optional<Client> optionalClient = getClientByName(clientName);
+        Optional<Car> optionalCar = carService.getCarByModel(carModel);
+        if (optionalCar.isPresent() && optionalClient.isPresent()) {
+            Car car = optionalCar.get();
+            Client client = optionalClient.get();
+            if (carBelongsToClient(car, client)) {
+                carService.makeCarFree(carModel);
+                clientRepository.delete(client);
+            }
         }
 
+    }
+
+    private boolean carBelongsToClient(Car car, Client client) {
+        return car.getClient().getId().equals(client.getId());
     }
 }
 

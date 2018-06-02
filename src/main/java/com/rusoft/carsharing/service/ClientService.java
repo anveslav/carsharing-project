@@ -9,7 +9,9 @@ public interface ClientService {
     Client addClient(String clientName, String birthYear, String carModel,
                      String carYear);
 
-    Optional<Client> findClientByNameAndBirthYear(String name, String year);
+    Optional<Client> getClientByNameAndBirthYear(String name, String year);
+
+    Optional<Client> getClientByName(String name);
 
     void deleteClient(String clientName, String carModel);
 
