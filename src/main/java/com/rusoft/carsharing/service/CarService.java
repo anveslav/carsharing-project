@@ -15,5 +15,7 @@ public interface CarService {
 
     void addCar(CarDto car);
 
+    void save(Car car);
+
     void makeCarFree(String model);
 }

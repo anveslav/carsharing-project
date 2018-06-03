@@ -3,7 +3,7 @@
   "model": "BMW",
   "productionYear":"2011",
   "client": {
-               "id": 1,
+               "id": 2,
                "name": "Ivan Ivanov",
                "birthYear": "1997"
             }

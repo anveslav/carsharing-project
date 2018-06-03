@@ -25,6 +25,7 @@ public class ModelMapper {
         return CarDto.builder()
                 .model(car.getModel())
                 .productionYear(car.getProductionYear())
+                .client(car.getClient())
                 .build();
     }
 

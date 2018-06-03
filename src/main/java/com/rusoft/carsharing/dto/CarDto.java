@@ -1,5 +1,6 @@
 package com.rusoft.carsharing.dto;
 
+import com.rusoft.carsharing.model.Client;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,4 +19,7 @@ public class CarDto {
 
     @NotNull
     private String productionYear;
+
+    private Client client;
+
 }

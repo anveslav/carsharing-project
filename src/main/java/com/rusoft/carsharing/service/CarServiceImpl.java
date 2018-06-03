@@ -37,7 +37,7 @@ public class CarServiceImpl implements CarService {
     @Override
     public Optional<Car> getCarByModelAndYear(String model, String year) {
         try {
-            Car car = carRepository.findByModelAndProductionYear(model, year);
+             Car car = carRepository.findByModelAndProductionYear(model, year);
             if (car != null) {
                 return Optional.of(car);
             }
@@ -70,6 +70,11 @@ public class CarServiceImpl implements CarService {
         } catch (Exception ex) {
             throw CarsharingException.wrap(ex, SAVING_CAR_EXCEPTION);
         }
+    }
+
+    @Override
+    public void save(Car car) {
+        carRepository.save(car);
     }
 
     @Override

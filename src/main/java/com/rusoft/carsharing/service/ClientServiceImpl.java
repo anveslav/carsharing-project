@@ -35,7 +35,7 @@ public class ClientServiceImpl implements ClientService {
                         .build();
                 car.setClient(client);
                 clientRepository.save(client);
-                carService.addCar(ModelMapper.carToCarDto(car));
+                //carService.save(car);
                 return ModelMapper.clientToClientDto(client);
             }
             return ModelMapper.clientToClientDto(optionalClient.get());

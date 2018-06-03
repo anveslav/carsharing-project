@@ -22,8 +22,7 @@ public class Car {
     @Column(name = "production_year")
     private String productionYear;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id")
     private Client client;
-
 }
