@@ -1,8 +1,6 @@
 package com.rusoft.carsharing.controller;
 
-
 import com.rusoft.carsharing.dto.ClientDto;
-import com.rusoft.carsharing.model.Client;
 import com.rusoft.carsharing.service.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,6 @@ public class ClientController {
                                @RequestParam("birth_year") String birthYear,
                                @RequestParam("car_model") String carModel,
                                @RequestParam("car_year") String carYear) {
-
         return clientService.addClient(clientName, birthYear, carModel, carYear);
     }
 
