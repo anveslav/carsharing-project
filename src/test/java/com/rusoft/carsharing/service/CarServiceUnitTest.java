@@ -1,7 +1,6 @@
 package com.rusoft.carsharing.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.rusoft.carsharing.exception.CarsharingException;
 import com.rusoft.carsharing.model.Car;
 import com.rusoft.carsharing.repository.CarRepository;
 import com.rusoft.carsharing.utils.TestUtils;
@@ -15,9 +14,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CarServiceUnitTest {
