@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CarService {
 
-    Optional<Car> getFreeCarByModelAndYear(String model, String year);
+    Optional<Car> getFreeCar(String model, String year);
 
     Optional<Car> getCarByModelAndYear(String model, String year);
 

@@ -19,7 +19,7 @@ public class CarServiceImpl implements CarService {
     private final CarRepository carRepository;
 
     @Override
-    public Optional<Car> getFreeCarByModelAndYear(String model, String year) {
+    public Optional<Car> getFreeCar(String model, String year) {
         try {
             Optional<Car> optionalCar = getCarByModelAndYear(model, year);
             if (optionalCar.isPresent()) {
@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService {
             }
             return Optional.empty();
         } catch (Exception ex) {
-            throw CarsharingException.wrap(ex, GETTING_FREE_CAR_BY_MODEL_AND_YEAR_EXCEPTION);
+            throw CarsharingException.wrap(ex, GETTING_FREE_CAR_EXCEPTION);
         }
     }
 

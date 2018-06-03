@@ -25,7 +25,7 @@ public class ClientServiceImpl implements ClientService {
                                String carModel, String carYear) {
         try {
             Optional<Client> optionalClient = getClientByNameAndBirthYear(clientName, birthYear);
-            Optional<Car> optionalCar = carService.getFreeCarByModelAndYear(carModel, carYear);
+            Optional<Car> optionalCar = carService.getFreeCar(carModel, carYear);
             if (!optionalClient.isPresent() && optionalCar.isPresent()) {
                 Car car = optionalCar.get();
                 Client client = Client.builder()

@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public enum CarServiceErrorCode implements ErrorCode {
 
-    GETTING_FREE_CAR_BY_MODEL_AND_YEAR_EXCEPTION(1, "Car isn't free"),
+    GETTING_FREE_CAR_EXCEPTION(1, "Car isn't free"),
     GETTING_CAR_BY_MODEL_AND_YEAR_EXCEPTION(2, "Car isn't free"),
     GETTING_CAR_BY_MODEL_EXCEPTION(3, "Car isn't found by model"),
     SAVING_CAR_EXCEPTION(4, "Car couldn't be saved"),
