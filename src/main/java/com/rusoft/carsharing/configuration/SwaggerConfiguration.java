@@ -24,7 +24,7 @@ public class SwaggerConfiguration {
     }
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("The TestPay API")
+        return new ApiInfoBuilder().title("The Carsharing API")
                 .build();
     }
 }

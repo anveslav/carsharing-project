@@ -4,6 +4,6 @@ spring:
       ddl-auto: create
   datasource:
      url: ${DATABASE_URL:jdbc:mysql://localhost:3306/carsharing}
-     username: root
-     password: root
+     username: ${USERNAME:root}
+     password: ${PASSWORD:root}
      driver-class-name: com.mysql.jdbc.Driver

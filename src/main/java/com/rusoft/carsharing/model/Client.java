@@ -26,5 +26,4 @@ public class Client {
     @OneToOne(mappedBy = "client")
     @JsonIgnore
     private Car car;
-
 }

@@ -34,7 +34,7 @@ public class CarServiceUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        model = "BMV";
+        model = "BMW";
         productionYear = "2011";
         freeCar = TestUtils.readJson(FREE_CAR, new TypeReference<Car>() {
         });
